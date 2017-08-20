@@ -18,7 +18,8 @@ SYSTEM_THREAD(ENABLED);
 enum State {
     MsgSelect,
     MsgRead,
-    NightLamp
+    NightLamp,
+    Listen
 };
 
 //these pins can not be changed 2/3 are special pins
@@ -101,13 +102,14 @@ State transition(State state) {
 
 
 void setup() {
-    status.blue();
-    ring.reset();
-    matrix.welcome();
 
     WiFi.on();
     WiFi.connect();
     waitFor(WiFi.ready, 30000);
+
+    status.blue();
+    ring.reset();
+    matrix.welcome();
 
     if (WiFi.ready()) {
         Particle.connect();
@@ -126,7 +128,11 @@ void loop() {
         if(state != State::NightLamp) status.cyan();
         Particle.process();
     } else {
-        if(state != State::NightLamp) status.white();
+        if(state == State::Listen) {
+            status.green();
+        } else if (state != State::NightLamp) {
+            status.white();
+        }
     }
 
     switch(button.getEvent()) {
@@ -134,8 +140,11 @@ void loop() {
             state = transition(state);
             break;
         case ButtonEvent::LongPress:
+            state = State::Listen;
+            init(state);
             status.green();
             WiFi.listen();
+            waitUntil(WiFi.ready);
             break;
         case ButtonEvent::Idle:
             state = State::NightLamp;
