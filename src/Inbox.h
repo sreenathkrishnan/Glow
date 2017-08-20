@@ -10,39 +10,10 @@ class Inbox {
 public:
     std::array<bool, MAX_MESSAGES>  isUnread;
 
-    Inbox() {
-        messages = {"I love you!", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
-        isUnread = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        msgNum = 0;
-        addSlot = 1;
-    }
-
-
-    void activate(uint8_t _msgNum) {
-        if (_msgNum < MAX_MESSAGES) {
-            msgNum = _msgNum;
-        } else {
-            msgNum = 0;
-        }
-    }
-
-    String get() {
-        if (msgNum < MAX_MESSAGES) {
-            isUnread[msgNum] = false;
-            return messages[msgNum];
-        }
-        return "";
-    }
-
-    uint8_t msgLen() {
-        return messages[msgNum].length();
-    }
-
-    int add(String msg) {
-        messages[addSlot] = msg;
-        isUnread[addSlot] = true;
-        addSlot = addSlot%(MAX_MESSAGES-1) + 1;
-        return int(addSlot);
-    }
+    Inbox();
+    void activate(uint8_t _msgNum);
+    char getChar(uint16_t pos);
+    uint8_t msgLen();
+    int add(String msg);
 
 };
