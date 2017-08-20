@@ -4,19 +4,21 @@
 
 
 Inbox::Inbox() {
-    messages = {"I love you!",
-                "It has been a great journey.",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                "."};
-    isUnread = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    messages = {
+        "I love you!",
+        "wow! Two years!!"
+        "It has been a great journey.",
+        "I hope this goes on and on and on and on and on and on and on.",
+        "Three One One Two Two Zero One Seven! Save the date!",
+        "I can text you here.",
+        "Notice the progress bar.",
+        "Sadly, you cannot respond back.",
+        "I think that is great!",
+        "Someday I will give you an app to control this.",
+        "Hope you like it.",
+        "Happy Two.Zero"
+    };
+    isUnread = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     msgNum = 0;
     addSlot = 1;
 }

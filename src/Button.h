@@ -8,17 +8,20 @@ enum ButtonState {
 enum ButtonEvent {
     None,
     ShortPress,
-    LongPress
+    LongPress,
+    Idle
 };
 
 const unsigned long shortPressDuration = 100;
 const unsigned long longPressDuration = 2000;
+const unsigned long idleDuration = 100000;
 
 class Button {
     ButtonState state;
     uint8_t pin;
     ButtonEvent event;
     unsigned long startTime;
+    unsigned long lastActiveTime;
 
 public:
 

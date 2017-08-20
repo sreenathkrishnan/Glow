@@ -12,11 +12,8 @@ SYSTEM_THREAD(ENABLED);
 #include "Lamp.h"
 
 // TODO
-// 1. Cleanup
-// 3. Welcome msg
-// 4. Word by word mode
-// 5. Persistence (save msgs)
-// 7. SLeep mode
+// 1. Word by word mode
+// 2. Persistence (save msgs)
 
 enum State {
     MsgSelect,
@@ -74,6 +71,8 @@ void process(State s) {
             ring.progressBar(msgPos, msgLen);
         } break;
         case State::NightLamp:
+            ring.reset();
+            matrix.reset();
             status.off();
             break;
     }
@@ -137,6 +136,10 @@ void loop() {
         case ButtonEvent::LongPress:
             status.green();
             WiFi.listen();
+            break;
+        case ButtonEvent::Idle:
+            state = State::NightLamp;
+            init(state);
             break;
     }
     process(state);
